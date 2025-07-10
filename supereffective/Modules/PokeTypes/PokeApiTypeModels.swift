@@ -30,7 +30,7 @@ extension PokeApi.PokeType {
             static let title = "Type TITLE"
             let types: [PokemonType]
             let damageRelationViewModel: DamageRelationViewModel?
-            let favorite: [PokemonFavorites]?
+            let favorite: [PokemonTypes]? = []
         }
         
         struct DamageRelationViewModel {

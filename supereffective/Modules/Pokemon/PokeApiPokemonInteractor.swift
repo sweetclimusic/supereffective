@@ -15,7 +15,7 @@
  */
 
 protocol PokeApiPokemonBusinessLogic {
-    func getViewContents()
+    func getViewContents() async
     func didTapButton()
 }
 
@@ -35,8 +35,8 @@ extension PokeApi.Pokemon {
 }
 
 extension PokeApi.Pokemon.Interactor: PokeApiPokemonBusinessLogic {
-    func getViewContents() {
-        presenter.presentViewContents(
+    func getViewContents() async {
+        await presenter.presentViewContents(
             response: .init()
         )
     }

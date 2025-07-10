@@ -19,7 +19,7 @@ import Factory
 
 protocol PokeApiTypeBusinessLogic {
     func getViewContents()
-    func getSelected(for url: Int)
+    func getSelected(for id: Int)
 }
 
 protocol PokeApiTypeDataStore {
@@ -44,7 +44,7 @@ extension PokeApi.PokeType.Interactor: PokeApiTypeBusinessLogic {
         Task { 
             let data = try await fetchPokeTypes()
             pokemonTypes = data
-            presenter.presentViewContents(
+            await presenter.presentViewContents(
                 response: .init(
                     selectedType: pokemonType, types: data, damageRelations: nil)
             )
@@ -56,7 +56,7 @@ extension PokeApi.PokeType.Interactor: PokeApiTypeBusinessLogic {
             let data = try await fetchPokeType(with: id)
             pokemonType = data.name
             print(data)
-            presenter.presentViewContents(
+            await presenter.presentViewContents(
                 response: .init(
                     selectedType: pokemonType, 
                     types: pokemonTypes,

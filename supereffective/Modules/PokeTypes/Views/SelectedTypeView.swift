@@ -80,15 +80,23 @@ extension PokeApi.PokeType {
         @State var pokemonTypes: [PokemonType]
         
         internal let inspection = Inspection<Self>()
+        let shadowStyleTop: ShadowStyle = .drop(color: .white, radius: 4.0, x: 3, y: 3)
+        let shadowStyleBottom: ShadowStyle = .drop(color: .black, radius: 8.0, x: 0, y: 0)
         var body: some View {
             VStack(alignment: .leading, spacing: 0) {
                 HStack{
                     Text(viewModel.type.uppercased())
                         .font(.largeTitle)
                 }
+                
                 .padding(0)
                 .background(
-                    LinearGradient(colors: [Color(.systemBackground), viewModel.theme], startPoint: .init(x: 0.85, y: 0), endPoint: .init(x: 0.95, y: 1))
+                    Rectangle()
+                        
+                        .fill(
+                            LinearGradient(colors: [Color(.systemBackground), .accentColor], startPoint: .init(x: 0.85, y: 0), endPoint: .init(x: 0.95, y: 1)))
+                        .foregroundStyle(.shadow(shadowStyleTop),.shadow(shadowStyleBottom))
+                        
                 )
                 
                 List(pokemonTypes, id: \.self) { type in
@@ -112,6 +120,26 @@ extension PokeApi.PokeType {
             .toolbar(.hidden)
             .onReceive(inspection.notice) { self.inspection.visit(self, $0) }
         }
+    }
+}
+#Preview{
+    let pokemonType: [PokemonType] = [
+        .init(name: "Bug"),
+        .init(name: "Grass"),
+        .init(name: "Fairy"),
+        .init(name: "Flying")
+    ]
+    ScrollView {
+        PokeApi.PokeType.DamageRelationView(
+            viewModel: .init(
+                type: "Steel",
+                types: pokemonType.map{
+                    $0.name
+                },
+                superEffective: ["Fairy", "Rock", "Ice"],
+                notVeryEffective: []),
+            pokemonTypes: pokemonType
+        )
     }
 }
 #Preview{

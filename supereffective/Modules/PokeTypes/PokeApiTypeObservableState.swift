@@ -19,7 +19,7 @@ import UIKit
 protocol PokeApiTypeDisplayLogic: AnyObject {
     func displayViewContents(
         viewModel: PokeApi.PokeType.ViewContents.ViewModel
-    )
+    ) async
 }
 
 protocol PokeApiTypeViewDelegate: AnyObject {
@@ -35,20 +35,21 @@ extension PokeApi.PokeType {
         var router: PokeApiTypeRoutingLogic!
         
         /// Mange display content based on values stored in the ViewModel
-        func displayViewContents(viewModel: PokeApi.PokeType.ViewContents.ViewModel) {
+        @MainActor func displayViewContents(viewModel: PokeApi.PokeType.ViewContents.ViewModel) {
+            // WIP highlight the display if a type is in viewModel.favorite.contains(theType)
             if viewModel.damageRelationViewModel != nil {
                 self.viewState = .selectedType(viewModel: viewModel, viewDelegate: self)
             } else {
                 self.viewState = viewModel.types.isEmpty ? .empty : .all(pokemonTypes: viewModel.types, viewDelegate: self)
             }
-            let scene = PokeApi.PokeType.SceneView(observableState: self)
+            _ = PokeApi.PokeType.SceneView(observableState: self)
             
         }
         
-        func displaySelectedContent(viewModel: PokeApi.PokeType.ViewContents.ViewModel){
+        @MainActor func displaySelectedContent(viewModel: PokeApi.PokeType.ViewContents.ViewModel){
             self.viewState = .selectedType(viewModel: viewModel,
                                            viewDelegate: self)
-            let scene = PokeApi.PokeType.SceneView(observableState: self)
+            _ = PokeApi.PokeType.SceneView(observableState: self)
         }
         
         func displaySelectedType(for url: String) {

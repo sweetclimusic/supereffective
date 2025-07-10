@@ -15,7 +15,7 @@
  */
 
 protocol PokeApiPokemonPresentationLogic {
-    func presentViewContents(response: PokeApi.Pokemon.ViewContents.Response)
+    func presentViewContents(response: PokeApi.Pokemon.ViewContents.Response) async
 }
 
 extension PokeApi.Pokemon {
@@ -26,8 +26,8 @@ extension PokeApi.Pokemon {
 }
 
 extension PokeApi.Pokemon.Presenter: PokeApiPokemonPresentationLogic {
-    func presentViewContents(response: PokeApi.Pokemon.ViewContents.Response) {
-        sceneView.displayViewContents(
+    func presentViewContents(response: PokeApi.Pokemon.ViewContents.Response) async {
+        await sceneView.displayViewContents(
             viewModel: .init(
                 headerViewModel: builder.buildHeaderViewModel(response: response)
             )

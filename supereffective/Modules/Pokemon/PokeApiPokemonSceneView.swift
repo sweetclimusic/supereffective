@@ -88,8 +88,8 @@ extension PokeApi.Pokemon {
                     self,
                     $0
                 )
-            }.onAppear {
-                interactor.getViewContents()
+            }.task {
+                await interactor.getViewContents()
             }
         }
     }

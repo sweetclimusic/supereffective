@@ -20,7 +20,7 @@ import Factory
 protocol PokeApiPokemonDisplayLogic: AnyObject {
     func displayViewContents(
         viewModel: PokeApi.Pokemon.ViewContents.ViewModel
-    )
+    ) async
 }
 
 protocol PokeApiPokemonViewDelegate: AnyObject {
@@ -37,7 +37,7 @@ extension PokeApi.Pokemon {
 
 extension PokeApi.Pokemon.ObservableState: PokeApiPokemonDisplayLogic, PokeApiPokemonViewDelegate {
     
-    func displayViewContents(
+    @MainActor func displayViewContents(
         viewModel: PokeApi.Pokemon.ViewContents.ViewModel
     ) {
         let scene = PokeApi.Pokemon.SceneView(

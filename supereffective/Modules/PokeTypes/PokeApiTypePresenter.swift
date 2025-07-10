@@ -15,7 +15,7 @@
  */
 
 protocol PokeApiTypePresentationLogic {
-    func presentViewContents(response: PokeApi.PokeType.ViewContents.Response)
+    func presentViewContents(response: PokeApi.PokeType.ViewContents.Response) async
 }
 
 extension PokeApi.PokeType {
@@ -27,8 +27,11 @@ extension PokeApi.PokeType {
 }
 
 extension PokeApi.PokeType.Presenter: PokeApiTypePresentationLogic {
-    func presentViewContents(response: PokeApi.PokeType.ViewContents.Response) {
-        sceneView.displayViewContents(
+    func presentViewContents(response: PokeApi.PokeType.ViewContents.Response) async {
+        // WIP load favorite types from userdefaults and place in viewmodel,
+        // favorite types should already beloaded from Factory on startup and cache in active memory
+        // so retrieve or load the favorite types
+        await sceneView.displayViewContents(
             viewModel: .init(
                 types: response.types,
                 damageRelationViewModel: builder.buildDamageRelationViewModel(response: response)

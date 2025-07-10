@@ -49,7 +49,7 @@ extension PokeApi.Pokemon.Router: Displayable {
         PokeApi.Pokemon.SceneView.self
     }
 
-    func setupDisplayable() ->any View {
+    @MainActor func setupDisplayable() -> any View {
         var obserableSceneState = PokeApi.Pokemon.ObservableState()
         var sceneView =  PokeApi.Pokemon.SceneView(
             viewModel: .init(headerViewModel: .init(subTitle: "PokeMon")),

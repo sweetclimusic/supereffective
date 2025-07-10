@@ -53,7 +53,7 @@ extension PokeApi.PokeType.Router: Displayable {
     }
     
     func setupDisplayable() -> any View {
-        var obserableSceneState = PokeApi.PokeType.ObservableState()
+        let obserableSceneState = PokeApi.PokeType.ObservableState()
         let sceneView = PokeApi.PokeType.SceneView(observableState: obserableSceneState)
         let interactor = PokeApi.PokeType.Interactor()
         let presenter = PokeApi.PokeType.Presenter()
